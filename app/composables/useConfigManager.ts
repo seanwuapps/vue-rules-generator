@@ -3,15 +3,18 @@ import type { PreferencesRef } from '../types';
 
 export const useConfigManager = (preferences: PreferencesRef) => {
   const exportConfig = () => {
-    const configToExport: Record<string, Record<string, boolean | string>> = {};
+    const configToExport: Record<string, any> = {};
     for (const categoryKey in preferences.value) {
       const category = preferences.value[categoryKey];
       if (category) {
-        configToExport[categoryKey] = {};
+        configToExport[categoryKey] = {
+          enabled: category.enabled,
+          rules: {},
+        };
         for (const ruleKey in category.rules) {
           const rule = category.rules[ruleKey];
           if (rule) {
-            configToExport[categoryKey][ruleKey] = rule.value;
+            configToExport[categoryKey].rules[ruleKey] = rule.value;
           }
         }
       }
@@ -37,10 +40,14 @@ export const useConfigManager = (preferences: PreferencesRef) => {
             for (const categoryKey in importedValues) {
               const category = preferences.value[categoryKey];
               if (category) {
-                for (const ruleKey in importedValues[categoryKey]) {
+                if (typeof importedValues[categoryKey].enabled === 'boolean') {
+                  category.enabled = importedValues[categoryKey].enabled;
+                }
+                const importedRules = importedValues[categoryKey].rules || importedValues[categoryKey];
+                for (const ruleKey in importedRules) {
                   const rule = category.rules[ruleKey];
                   if (rule) {
-                    rule.value = importedValues[categoryKey][ruleKey];
+                    rule.value = importedRules[ruleKey];
                   }
                 }
               }

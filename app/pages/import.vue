@@ -9,11 +9,11 @@
 
         <div class="space-y-4">
           <UFileUpload
+            v-model="selectedFile"
             highlight
             label="Drop .json file here or click to upload"
             description="The imported preferences will be applied immediately."
             accept=".json"
-            @change="onFileChange"
           />
           <UButton @click="onSubmit" :disabled="!selectedFile"
             >Apply config</UButton
@@ -42,10 +42,6 @@ const { importConfig } = useConfigManager(preferences);
 
 const selectedFile: Ref<File | null> = ref(null);
 
-const onFileChange = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  selectedFile.value = target.files?.[0] || null;
-};
 
 const onSubmit = () => {
   if (selectedFile.value) {

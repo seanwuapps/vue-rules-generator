@@ -15,4 +15,5 @@
 - [x] Integrate UFileUpload component for config import
 - [x] Separate file selection from import submission
 - [x] Fix 404 error on page refresh by enabling SSR
-- [ ] Refine import/export format to only include values
+- [x] Refine import/export format to include enabled flag and structured rules
+- [x] Implement collapsible sections for rule categories with enable/disable toggles
