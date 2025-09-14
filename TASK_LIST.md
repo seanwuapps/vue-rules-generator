@@ -8,6 +8,12 @@
 - [x] Implement the rules file generation logic
 - [x] Implement the rule file download functionality
 - [x] Implement the preferences JSON export functionality
-- [x] Implement the preferences JSON import functionality
+- [x] Separate import functionality into its own page
 - [x] Refine UI and ensure extensibility
-- [ ] Refine import/export format to only include values
+- [x] Add a navigation header with Export Config button
+- [x] Automatically redirect to home after config import
+- [x] Integrate UFileUpload component for config import
+- [x] Separate file selection from import submission
+- [x] Fix 404 error on page refresh by enabling SSR
+- [x] Refine import/export format to include enabled flag and structured rules
+- [x] Implement collapsible sections for rule categories with enable/disable toggles

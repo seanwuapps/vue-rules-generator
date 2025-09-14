@@ -2,18 +2,19 @@ import { ref, type Ref } from 'vue';
 import type { PreferencesRef } from '../types';
 
 export const useConfigManager = (preferences: PreferencesRef) => {
-  const fileInput: Ref<HTMLInputElement | null> = ref(null);
-
   const exportConfig = () => {
-    const configToExport: Record<string, Record<string, boolean | string>> = {};
+    const configToExport: Record<string, any> = {};
     for (const categoryKey in preferences.value) {
       const category = preferences.value[categoryKey];
       if (category) {
-        configToExport[categoryKey] = {};
+        configToExport[categoryKey] = {
+          enabled: category.enabled,
+          rules: {},
+        };
         for (const ruleKey in category.rules) {
           const rule = category.rules[ruleKey];
           if (rule) {
-            configToExport[categoryKey][ruleKey] = rule.value;
+            configToExport[categoryKey].rules[ruleKey] = rule.value;
           }
         }
       }
@@ -29,32 +30,29 @@ export const useConfigManager = (preferences: PreferencesRef) => {
     URL.revokeObjectURL(url);
   };
 
-  const triggerFileInput = () => {
-    if (fileInput.value) {
-      fileInput.value.click();
-    }
-  };
-
-  const importConfig = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
+  const importConfig = (file: File) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         if (e.target?.result && typeof e.target.result === 'string') {
           try {
             const importedValues = JSON.parse(e.target.result);
             for (const categoryKey in importedValues) {
               const category = preferences.value[categoryKey];
               if (category) {
-                for (const ruleKey in importedValues[categoryKey]) {
+                if (typeof importedValues[categoryKey].enabled === 'boolean') {
+                  category.enabled = importedValues[categoryKey].enabled;
+                }
+                const importedRules = importedValues[categoryKey].rules || importedValues[categoryKey];
+                for (const ruleKey in importedRules) {
                   const rule = category.rules[ruleKey];
                   if (rule) {
-                    rule.value = importedValues[categoryKey][ruleKey];
+                    rule.value = importedRules[ruleKey];
                   }
                 }
               }
             }
+            await navigateTo('/');
           } catch (error) {
             console.error('Error parsing JSON file:', error);
             // Optionally, show a toast notification for the error
@@ -65,5 +63,5 @@ export const useConfigManager = (preferences: PreferencesRef) => {
     }
   };
 
-  return { fileInput, exportConfig, triggerFileInput, importConfig };
+  return { exportConfig, importConfig };
 };

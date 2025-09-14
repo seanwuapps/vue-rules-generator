@@ -6,7 +6,7 @@ export const useRuleGenerator = (preferences: PreferencesRef, selectedFormat: Re
     let content = `# ${selectedFormat.value} Rules\n\n`;
     for (const categoryKey in preferences.value) {
       const category = preferences.value[categoryKey];
-      if (category) {
+      if (category && category.enabled) {
         content += `## ${category.title}\n\n`;
         for (const ruleKey in category.rules) {
           const rule = category.rules[ruleKey];

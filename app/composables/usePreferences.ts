@@ -5,6 +5,7 @@ import type { Preferences, PreferencesRef } from '../types';
 const preferencesState: PreferencesRef = ref<Preferences>({
   vueProject: {
     title: 'Vue Project Rules',
+    enabled: true,
     rules: {
       scriptSetup: {
         label: 'Enforce <script setup>',
@@ -26,6 +27,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
   },
   linting: {
     title: 'Linting & Formatting',
+    enabled: true,
     rules: {
       semicolons: {
         label: 'Use Semicolons',
@@ -42,6 +44,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
   },
   fileOrganization: {
     title: 'File Organization',
+    enabled: true,
     rules: {
       composablesDir: {
         label: 'Separate Composables Directory',

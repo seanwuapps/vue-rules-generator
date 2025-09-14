@@ -9,6 +9,7 @@ export interface Rule {
 
 export interface PreferenceCategory {
   title: string;
+  enabled: boolean;
   rules: Record<string, Rule>;
 }
 
