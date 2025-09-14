@@ -2,8 +2,6 @@ import { ref, type Ref } from 'vue';
 import type { PreferencesRef } from '../types';
 
 export const useConfigManager = (preferences: PreferencesRef) => {
-  const fileInput: Ref<HTMLInputElement | null> = ref(null);
-
   const exportConfig = () => {
     const configToExport: Record<string, Record<string, boolean | string>> = {};
     for (const categoryKey in preferences.value) {
@@ -29,18 +27,10 @@ export const useConfigManager = (preferences: PreferencesRef) => {
     URL.revokeObjectURL(url);
   };
 
-  const triggerFileInput = () => {
-    if (fileInput.value) {
-      fileInput.value.click();
-    }
-  };
-
-  const importConfig = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
+  const importConfig = (file: File) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         if (e.target?.result && typeof e.target.result === 'string') {
           try {
             const importedValues = JSON.parse(e.target.result);
@@ -55,6 +45,7 @@ export const useConfigManager = (preferences: PreferencesRef) => {
                 }
               }
             }
+            await navigateTo('/');
           } catch (error) {
             console.error('Error parsing JSON file:', error);
             // Optionally, show a toast notification for the error
@@ -65,5 +56,5 @@ export const useConfigManager = (preferences: PreferencesRef) => {
     }
   };
 
-  return { fileInput, exportConfig, triggerFileInput, importConfig };
+  return { exportConfig, importConfig };
 };
