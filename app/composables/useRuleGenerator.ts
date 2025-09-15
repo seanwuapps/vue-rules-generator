@@ -7,19 +7,22 @@ export const useRuleGenerator = (
   selectedFormat: Ref<RuleFormat>
 ) => {
   const generatedRules = computed(() => {
-    let content = `# Vue project guidelines\n\n`;
+    let content = `# Vue project guidelines
+
+You are an expert in Vue 3, TypeScript and Frontend Development. Follow the rules below when you code:
+
+`;
     for (const categoryKey in preferences.value) {
       const category = preferences.value[categoryKey];
       if (category && category.enabled) {
         content += `## ${category.title}\n\n`;
         for (const ruleKey in category.rules) {
           const rule = category.rules[ruleKey];
-          if (rule) {
-            let value = rule.value;
-            if (typeof value === "boolean") {
-              value = value ? "Yes" : "No";
+          if (rule && rule.ruleGenerate) {
+            const generatedRule = rule.ruleGenerate(rule.value);
+            if (generatedRule) {
+              content += `- ${generatedRule}\n`;
             }
-            content += `- ${rule.label}: ${value}\n`;
           }
         }
         content += "\n";

@@ -5,6 +5,7 @@ export interface Rule {
   value: boolean | string;
   control: 'toggle' | 'select' | 'text';
   options?: { label: string; value: string }[];
+  ruleGenerate?: (value: boolean | string) => string;
 }
 
 export interface PreferenceCategory {

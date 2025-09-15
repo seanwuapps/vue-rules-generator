@@ -19,3 +19,4 @@
 - [x] Implement collapsible sections for rule categories with enable/disable toggles
 - [x] Dynamically generate filename for downloaded rules based on selected format
 - [x] Refactor rule format selection to use constants (enum-like) instead of strings
+- [x] Implement custom rule generation logic via `ruleGenerate` function
