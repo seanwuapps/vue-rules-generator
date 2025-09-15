@@ -22,36 +22,36 @@
           </template>
 
           <div class="space-y-4">
-            <UFormField
+            <div
               v-for="(rule, ruleKey) in category.rules"
               :key="ruleKey"
-              :label="rule.label"
+              class="flex items-center justify-between w-full"
             >
-              <USwitch v-if="rule.control === 'toggle'" v-model="rule.value" />
-              <USelect
-                v-if="rule.control === 'select'"
-                v-model="rule.value"
-                :items="rule.options"
-                :label="rule.label"
-              />
-              <UInput v-if="rule.control === 'text'" v-model="rule.value" />
-            </UFormField>
-            <UFormField label="Custom Instructions" class="mt-4">
-              <template #label>
-                <div class="flex items-center justify-between w-full">
-                  <span>Custom Instructions</span>
-                  <USwitch v-model="category.customInstructionsEnabled" />
-                </div>
-              </template>
-              <ClientOnly v-if="category.customInstructionsEnabled">
-                <MdEditor
-                  v-model="category.customInstructions"
-                  :theme="colorMode.value"
-                  language="en-US"
-                  placeholder="Add any additional instructions for this category..."
+              <label class="text-sm font-medium text-gray-900 dark:text-white">{{ rule.label }}</label>
+              <div>
+                <USwitch v-if="rule.control === 'toggle'" v-model="rule.value" />
+                <USelect
+                  v-if="rule.control === 'select'"
+                  v-model="rule.value"
+                  :items="rule.options"
                 />
-              </ClientOnly>
-            </UFormField>
+                <UInput v-if="rule.control === 'text'" v-model="rule.value" />
+              </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 my-4" />
+            <div class="flex items-center justify-between w-full">
+              <label class="text-sm font-medium text-gray-900 dark:text-white">Custom Instructions</label>
+              <USwitch v-model="category.customInstructionsEnabled" />
+            </div>
+            <ClientOnly v-if="category.customInstructionsEnabled">
+              <MdEditor
+                v-model="category.customInstructions"
+                :theme="colorMode.value"
+                language="en-US"
+                placeholder="Add any additional instructions for this category..."
+                class="mt-2"
+              />
+            </ClientOnly>
           </div>
         </UCard>
 

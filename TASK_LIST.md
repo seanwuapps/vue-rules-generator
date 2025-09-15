@@ -25,3 +25,5 @@
 - [x] Add a field for custom instructions in each category
 - [x] Replace custom instructions textarea with a markdown editor
 - [x] Add a switch to enable/disable custom instructions for each category
+- [x] Align switches and their labels to be inline
+- [x] Refactor rule layout for a cleaner, more consistent two-column design
