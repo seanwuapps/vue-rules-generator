@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.9.0",
     "@nuxt/ui": "3.3.3",
     "md-editor-v3": "^6.0.1",
     "nuxt": "^4.1.1",
