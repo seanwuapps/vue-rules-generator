@@ -1,9 +1,13 @@
-import { computed, type Ref } from 'vue';
-import type { PreferencesRef } from '../types';
+import { computed, type Ref } from "vue";
+import type { PreferencesRef } from "../types";
+import { RuleFormats, type RuleFormat } from "~/constants/rule-formats";
 
-export const useRuleGenerator = (preferences: PreferencesRef, selectedFormat: Ref<string>) => {
+export const useRuleGenerator = (
+  preferences: PreferencesRef,
+  selectedFormat: Ref<RuleFormat>
+) => {
   const generatedRules = computed(() => {
-    let content = `# ${selectedFormat.value} Rules\n\n`;
+    let content = `# Vue project guidelines\n\n`;
     for (const categoryKey in preferences.value) {
       const category = preferences.value[categoryKey];
       if (category && category.enabled) {
@@ -12,24 +16,35 @@ export const useRuleGenerator = (preferences: PreferencesRef, selectedFormat: Re
           const rule = category.rules[ruleKey];
           if (rule) {
             let value = rule.value;
-            if (typeof value === 'boolean') {
-              value = value ? 'Yes' : 'No';
+            if (typeof value === "boolean") {
+              value = value ? "Yes" : "No";
             }
             content += `- ${rule.label}: ${value}\n`;
           }
         }
-        content += '\n';
+        content += "\n";
       }
     }
     return content;
   });
 
   const downloadRulesFile = () => {
-    const blob = new Blob([generatedRules.value], { type: 'text/markdown;charset=utf-8' });
+    const getFilename = () => {
+      switch (selectedFormat.value) {
+        case RuleFormats.GITHUB_COPILOT:
+          return "vue.instructions.md";
+        default:
+          return "vue.rules.md";
+      }
+    };
+
+    const blob = new Blob([generatedRules.value], {
+      type: "text/markdown;charset=utf-8",
+    });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'rules.md';
+    a.download = getFilename();
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

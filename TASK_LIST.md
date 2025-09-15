@@ -17,3 +17,5 @@
 - [x] Fix 404 error on page refresh by enabling SSR
 - [x] Refine import/export format to include enabled flag and structured rules
 - [x] Implement collapsible sections for rule categories with enable/disable toggles
+- [x] Dynamically generate filename for downloaded rules based on selected format
+- [x] Refactor rule format selection to use constants (enum-like) instead of strings

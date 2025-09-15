@@ -10,7 +10,13 @@
         >
           <template #header>
             <div class="flex justify-between items-center">
-              <h3 class="text-lg font-medium">{{ category.title }} <span class="text-sm font-normal text-gray-500 dark:text-gray-400">({{ Object.keys(category.rules).length }} rules)</span></h3>
+              <h3 class="text-lg font-medium">
+                {{ category.title }}
+                <span
+                  class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                  >({{ Object.keys(category.rules).length }} rules)</span
+                >
+              </h3>
               <USwitch v-model="category.enabled" />
             </div>
           </template>
@@ -21,20 +27,14 @@
               :key="ruleKey"
               :label="rule.label"
             >
-              <USwitch
-                v-if="rule.control === 'toggle'"
-                v-model="rule.value"
-              />
+              <USwitch v-if="rule.control === 'toggle'" v-model="rule.value" />
               <USelect
                 v-if="rule.control === 'select'"
                 v-model="rule.value"
                 :items="rule.options"
                 :label="rule.label"
               />
-              <UInput
-                v-if="rule.control === 'text'"
-                v-model="rule.value"
-              />
+              <UInput v-if="rule.control === 'text'" v-model="rule.value" />
             </UFormField>
           </div>
         </UCard>
@@ -54,9 +54,8 @@
               />
             </UFormField>
 
-            <UFormField label="Generated Rules Preview">
-              <UTextarea v-model="generatedRules" :rows="15" readonly />
-            </UFormField>
+            <h3>Generated Rules Preview</h3>
+            <pre class="p-4">{{ generatedRules }}</pre>
 
             <UButton @click="downloadRulesFile" label="Download Rules File" />
           </div>
@@ -75,13 +74,14 @@ import { ref } from "vue";
 import AppHeader from "~/components/AppHeader.vue";
 import { usePreferences } from "~/composables/usePreferences";
 import { useRuleGenerator } from "~/composables/useRuleGenerator";
+import { RuleFormats } from "~/constants/rule-formats";
 
 const { preferences } = usePreferences();
 
 const ruleFormats = [
-  { label: "GitHub Copilot", value: "GitHub Copilot" },
-  { label: "Cursor", value: "Cursor" },
-  { label: "Windsurf", value: "Windsurf" },
+  { label: "GitHub Copilot", value: RuleFormats.GITHUB_COPILOT },
+  { label: "Cursor", value: RuleFormats.CURSOR },
+  { label: "Windsurf", value: RuleFormats.WINDSURF },
 ];
 const selectedFormat = ref(ruleFormats[0].value);
 
