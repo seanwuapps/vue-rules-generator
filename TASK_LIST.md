@@ -20,3 +20,7 @@
 - [x] Dynamically generate filename for downloaded rules based on selected format
 - [x] Refactor rule format selection to use constants (enum-like) instead of strings
 - [x] Implement custom rule generation logic via `ruleGenerate` function
+- [x] Add a rule to allow users to prefer the use of `ref` over `reactive` for `.value` consistency
+- [x] Add a rule for UI library documentation URL
+- [x] Add a field for custom instructions in each category
+- [x] Replace custom instructions textarea with a markdown editor

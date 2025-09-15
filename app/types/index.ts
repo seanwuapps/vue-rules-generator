@@ -12,6 +12,7 @@ export interface PreferenceCategory {
   title: string;
   enabled: boolean;
   rules: Record<string, Rule>;
+  customInstructions?: string;
 }
 
 export type Preferences = Record<string, PreferenceCategory>;

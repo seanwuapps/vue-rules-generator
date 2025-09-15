@@ -36,6 +36,16 @@
               />
               <UInput v-if="rule.control === 'text'" v-model="rule.value" />
             </UFormField>
+            <UFormField label="Custom Instructions" class="mt-4">
+              <ClientOnly>
+                <MdEditor
+                  v-model="category.customInstructions"
+                  :theme="colorMode.value"
+                  language="en-US"
+                  placeholder="Add any additional instructions for this category..."
+                />
+              </ClientOnly>
+            </UFormField>
           </div>
         </UCard>
 
@@ -75,7 +85,10 @@ import AppHeader from "~/components/AppHeader.vue";
 import { usePreferences } from "~/composables/usePreferences";
 import { useRuleGenerator } from "~/composables/useRuleGenerator";
 import { RuleFormats } from "~/constants/rule-formats";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
 
+const colorMode = useColorMode();
 const { preferences } = usePreferences();
 
 const ruleFormats = [
