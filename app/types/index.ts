@@ -13,6 +13,7 @@ export interface PreferenceCategory {
   enabled: boolean;
   rules: Record<string, Rule>;
   customInstructions?: string;
+  customInstructionsEnabled?: boolean;
 }
 
 export type Preferences = Record<string, PreferenceCategory>;

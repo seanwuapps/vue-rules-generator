@@ -37,7 +37,13 @@
               <UInput v-if="rule.control === 'text'" v-model="rule.value" />
             </UFormField>
             <UFormField label="Custom Instructions" class="mt-4">
-              <ClientOnly>
+              <template #label>
+                <div class="flex items-center justify-between w-full">
+                  <span>Custom Instructions</span>
+                  <USwitch v-model="category.customInstructionsEnabled" />
+                </div>
+              </template>
+              <ClientOnly v-if="category.customInstructionsEnabled">
                 <MdEditor
                   v-model="category.customInstructions"
                   :theme="colorMode.value"

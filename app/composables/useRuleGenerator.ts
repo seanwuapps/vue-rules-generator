@@ -26,7 +26,7 @@ You are an expert in Vue 3, TypeScript and Frontend Development. Follow the rule
           }
         }
 
-        if (category.customInstructions && category.customInstructions.trim()) {
+        if (category.customInstructionsEnabled && category.customInstructions && category.customInstructions.trim()) {
           content += `${category.customInstructions.trim()}\n`;
         }
 

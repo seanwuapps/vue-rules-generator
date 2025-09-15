@@ -24,3 +24,4 @@
 - [x] Add a rule for UI library documentation URL
 - [x] Add a field for custom instructions in each category
 - [x] Replace custom instructions textarea with a markdown editor
+- [x] Add a switch to enable/disable custom instructions for each category

@@ -7,6 +7,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
     title: "Vue Project Rules",
     enabled: true,
     customInstructions: "",
+    customInstructionsEnabled: false,
     rules: {
       scriptSetup: {
         label: "Enforce <script setup>",
@@ -49,6 +50,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
     title: "Linting & Formatting",
     enabled: true,
     customInstructions: "",
+    customInstructionsEnabled: false,
     rules: {
       semicolons: {
         label: "Use Semicolons",
@@ -76,6 +78,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
     title: "File Organization",
     enabled: true,
     customInstructions: "",
+    customInstructionsEnabled: false,
     rules: {
       composablesDir: {
         label: "Separate Composables Directory",
@@ -99,6 +102,7 @@ const preferencesState: PreferencesRef = ref<Preferences>({
     title: "UI Development",
     enabled: true,
     customInstructions: "",
+    customInstructionsEnabled: false,
     rules: {
       uiLibraryDocs: {
         label: "UI Library Documentation URL",
